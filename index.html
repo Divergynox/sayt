@@ -399,7 +399,7 @@ footer{background:var(--card);border-top:1px solid var(--border);padding:2.5rem 
 <script>
 // ── CONFIG ──────────────────────────────────────────────────────────────
 // TODO: Replace with your own TMDB API Read Access Token from https://www.themoviedb.org/settings/api
-const TMDB_TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYWEyMWQ3ZjBkZDQ3MmRiYWY2MTAzNzZjZmZkY2UwWSlsIm5iZiI6MTc3MTkwOTY5My4yMTksInN1YiI6IjZhMGQ1OTJkMzMzNGJhYmU5MGY4ZGQ3ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.8oYumNwm0WqUQ0THVxflELjByuT5dktrTWCyIAaYE_w';
+const TMDB_KEY = 'caa21d7f0dd472dbaf610376cffdce0a';
 const IMG_W500   = 'https://image.tmdb.org/t/p/w500';
 const IMG_W1280  = 'https://image.tmdb.org/t/p/w1280';
 
@@ -451,9 +451,8 @@ const localReviews = {};
 
 // ── TMDB FETCH ───────────────────────────────────────────────────────────
 async function tmdbFetch(path){
-  const res = await fetch(`https://api.themoviedb.org/3${path}`,{
-    headers:{Authorization:`Bearer ${TMDB_TOKEN}`}
-  });
+  const sep = path.includes('?') ? '&' : '?';
+  const res = await fetch(`https://api.themoviedb.org/3${path}${sep}api_key=${TMDB_KEY}`);
   if(!res.ok) throw new Error(`TMDB error ${res.status}`);
   return res.json();
 }
@@ -758,4 +757,5 @@ function showToast(msg){ const t=document.getElementById('toast'); t.textContent
 </script>
 </body>
 </html>
+
 
